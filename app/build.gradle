@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.phuket.tour.audioplayer'
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.phuket.tour.audioplayer"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // cmake
+        externalNativeBuild {
+            cmake {
+//                https://developer.android.google.cn/reference/tools/gradle-api/7.1/com/android/build/api/dsl/ExternalNativeCmakeOptions
+                abiFilters "armeabi-v7a", "arm64-v8a"
+//                cFlags "-D__STDC_FORMAT_MACROS"
+                cppFlags "-fexceptions", "-frtti"
+//                targets "audioencoder"
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // cmake
+    externalNativeBuild {
+//        https://developer.android.google.cn/reference/tools/gradle-api/7.1/com/android/build/api/dsl/Cmake
+        cmake {
+            path "src/main/jni/CMakeLists.txt"
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
