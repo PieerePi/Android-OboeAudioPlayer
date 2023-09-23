@@ -6,6 +6,7 @@ AccompanyDecoder::AccompanyDecoder() {
 	this->seek_seconds = 0.0f;
 	this->seek_req = false;
 	this->seek_resp = false;
+	this->channels = 2;
 	accompanyFilePath = NULL;
 }
 
@@ -26,6 +27,12 @@ int AccompanyDecoder::getMusicMeta(const char* fileString, int * metaData) {
 	metaData[0] = sampleRate;
 	metaData[1] = bitRate;
 	return 0;
+}
+
+void AccompanyDecoder::init(const char* fileString, int packetBufferSizeParam, int channels){
+	this->channels = channels;
+	init(fileString);
+	packetBufferSize = packetBufferSizeParam;
 }
 
 void AccompanyDecoder::init(const char* fileString, int packetBufferSizeParam){
@@ -134,7 +141,7 @@ int AccompanyDecoder::init(const char* audioFile) {
 		 * @param log_offset      logging level offset
 		 * @param log_ctx         parent logging context, can be NULL
 		 */
-		swrContext = swr_alloc_set_opts(NULL, av_get_default_channel_layout(OUT_PUT_CHANNELS), AV_SAMPLE_FMT_S16, avCodecContext->sample_rate,
+		swrContext = swr_alloc_set_opts(NULL, av_get_default_channel_layout(channels), AV_SAMPLE_FMT_S16, avCodecContext->sample_rate,
 				av_get_default_channel_layout(avCodecContext->channels), avCodecContext->sample_fmt, avCodecContext->sample_rate, 0, NULL);
 		if (!swrContext || swr_init(swrContext)) {
 			if (swrContext)
@@ -146,14 +153,16 @@ int AccompanyDecoder::init(const char* audioFile) {
 			return -1;
 		}
 	}
-	LOGI("channels is %d sampleRate is %d", avCodecContext->channels, avCodecContext->sample_rate);
+	LOGI("channels is %d sampleRate is %d sampleFmt is %d", avCodecContext->channels,
+		 avCodecContext->sample_rate, avCodecContext->sample_fmt);
 	pAudioFrame = av_frame_alloc();
 //	LOGI("leave AccompanyDecoder::init");
 	return 1;
 }
 
 bool AccompanyDecoder::audioCodecIsSupported() {
-	if (avCodecContext->sample_fmt == AV_SAMPLE_FMT_S16) {
+	// in decoder context, it should always be planar format AV_SAMPLE_FMT_S16P
+	if (avCodecContext->sample_fmt == AV_SAMPLE_FMT_S16 && avCodecContext->channels == channels) {
 		return true;
 	}
 	return false;
@@ -257,7 +266,7 @@ int AccompanyDecoder::readFrame() {
 					LOGI("decode audio error, skip packet");
 				}
 				if (gotframe) {
-					int numChannels = OUT_PUT_CHANNELS;
+					int numChannels = channels;
 					int numFrames = 0;
 					void * audioData;
 					if (swrContext) {

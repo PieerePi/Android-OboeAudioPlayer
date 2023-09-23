@@ -108,8 +108,10 @@ public class NativeMp3Player {
 		playerThread.start();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void initAudioTrack() {
 		int bufferSize = AudioTrack.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
+		// new AudioTrack.Builder() 需要API 23，而工程是API 21
 		audioTrack = new AudioTrack(this.audioStreamType, sampleRateInHz, channelConfig, audioFormat, bufferSize,
 				AudioTrack.MODE_STREAM);
 	}
@@ -225,7 +227,8 @@ public class NativeMp3Player {
 //					}
 
 					if (null != audioTrack && audioTrack.getState() != AudioTrack.STATE_UNINITIALIZED) {
-						audioTrack.setStereoVolume(1, 1);
+//						audioTrack.setStereoVolume(1, 1);
+						audioTrack.setVolume(1);
 						if (extraSlientSampleSize[0] > 0) {
 							int totalSize = extraSlientSampleSize[0] + sample_count;
 							short[] playSamples = new short[totalSize];

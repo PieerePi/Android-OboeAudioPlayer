@@ -131,6 +131,7 @@ void SoundService::initSongDecoder(const char* accompanyPath, float percent) {
 	int* metaData = new int[2];
 	decoderController->getMusicMeta(accompanyPath, metaData);
 	accompanySampleRate = metaData[0];
+	delete[] metaData;
 	decoderController->init(accompanyPath, percent);
 	/** 预设置buffer的个数是2个,从index为0的位置开始作为第一个 **/
 	this->bufferNums = 2;

@@ -31,6 +31,7 @@ protected:
 	float volume;
 	/** 7.0新增**/
 	float accompanyMax;
+	int channels;
 
 	/** 解码线程，主要是调用原唱和伴唱的解码器 解码出对应的packet数据来 **/
 	pthread_t songDecoderThread;
@@ -61,6 +62,7 @@ public:
 
 	/** 初始两个decoder,并且根据上一步算出的采样率，计算出伴奏和原唱的bufferSize **/
 	virtual void init(const char* accompanyPath, float packetBufferTimePercent);
+	virtual void init(const char* accompanyPath, float packetBufferTimePercent, int channels);
 
 	/** 读取samples,返回实际读取的sample的个数 并且将accompanyPacket放入到accompanyQueue中，如果有originalSongPacket销毁 **/
 	virtual int readSamples(short* samples, int size, int* slientSizeArr);

@@ -7,6 +7,7 @@ import com.phuket.tour.audioplayer.audiotrack.NativeMp3PlayerController;
 import com.phuket.tour.audioplayer.opensles.SoundTrackController;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Button audioTrackStopBtn;
     private Button openSLESPlayBtn;
     private Button openSLESStopBtn;
+    private Button openOboeActivityBtn;
     /** 要播放的文件路径 **/
     private static String playFilePath = "131.mp3";
 
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         audioTrackStopBtn = (Button) findViewById(R.id.stop_audiotrack_btn);
         openSLESPlayBtn = (Button) findViewById(R.id.play_opensl_es_btn);
         openSLESStopBtn = (Button) findViewById(R.id.stop_opensl_es_btn);
+        openOboeActivityBtn = (Button) findViewById(R.id.open_oboe_btn);
     }
 
     private void bindListener() {
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         audioTrackStopBtn.setOnClickListener(audioTrackStopBtnListener);
         openSLESPlayBtn.setOnClickListener(openSLESPlayBtnListener);
         openSLESStopBtn.setOnClickListener(openSLESStopBtnListener);
+        openOboeActivityBtn.setOnClickListener(openOboeActivityBtnListener);
     }
 
     private NativeMp3PlayerController audioTrackPlayerController;
@@ -134,6 +138,15 @@ public class MainActivity extends AppCompatActivity {
                 openSLPlayerController.stop();
                 openSLPlayerController = null;
             }
+        }
+    };
+
+    OnClickListener openOboeActivityBtnListener = new OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            Intent startoboe = new Intent(MainActivity.this, OboeActivity.class);
+            startActivity(startoboe);
         }
     };
 

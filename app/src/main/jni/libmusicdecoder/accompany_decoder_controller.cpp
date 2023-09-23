@@ -4,6 +4,7 @@
 AccompanyDecoderController::AccompanyDecoderController() {
 	accompanyDecoder = NULL;
 	playPosition = 0.0f;
+	channels = 2;
 }
 
 AccompanyDecoderController::~AccompanyDecoderController() {
@@ -49,7 +50,13 @@ void AccompanyDecoderController::initAccompanyDecoder(
 		const char* accompanyPath) {
 	//初始化两个decoder
 	accompanyDecoder = new AccompanyDecoder();
-	accompanyDecoder->init(accompanyPath, accompanyPacketBufferSize);
+	accompanyDecoder->init(accompanyPath, accompanyPacketBufferSize, channels);
+}
+
+void AccompanyDecoderController::init(const char* accompanyPath,
+									  float packetBufferTimePercent, int channels) {
+	this->channels = channels;
+	init(accompanyPath, packetBufferTimePercent);
 }
 
 void AccompanyDecoderController::init(const char* accompanyPath,

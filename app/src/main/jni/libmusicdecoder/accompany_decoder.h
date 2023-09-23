@@ -54,6 +54,7 @@ private:
 
 	bool seek_success_read_frame_success;
 	int packetBufferSize;
+	int channels;
 
 	/** 每次解码出来的audioBuffer以及这个audioBuffer的时间戳以及当前类对于这个audioBuffer的操作情况 **/
 	short* audioBuffer;
@@ -81,6 +82,7 @@ public:
 	virtual int getMusicMeta(const char* fileString, int * metaData);
 	//初始化这个decoder，即打开指定的mp3文件
 	virtual void init(const char* fileString, int packetBufferSizeParam);
+	virtual void init(const char* fileString, int packetBufferSizeParam, int channels);
 	virtual AudioPacket* decodePacket();
 	//销毁这个decoder
 	virtual void destroy();
