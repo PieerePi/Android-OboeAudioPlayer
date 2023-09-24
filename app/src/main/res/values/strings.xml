@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidAudioPlayer</string>
+    <string name="app_name">AudioPlayer</string>
     <string name="hello_world">Hello world!</string>
     <string name="audio_player_audiotrack">AudioPlayer AudioTrack Impl</string>
     <string name="audio_player_opensl_es">AudioPlayer OpenSL ES Impl</string>

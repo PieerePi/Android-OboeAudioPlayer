@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                                 AUDIO_TRACK_PLAY_DONE, 1, 1));
                     }
                 });
-                String lplayFilePath = getApplicationContext().getFilesDir().getAbsolutePath() + "/" + playFilePath;
+                String lplayFilePath = getApplicationContext().getFilesDir().getAbsolutePath() + File.separator + playFilePath;
                 audioTrackPlayerController.setAudioDataSource(lplayFilePath);
                 audioTrackPlayerController.start();
             }
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                                 OPENSL_ES_PLAY_DONE, 1, 1));
                     }
                 });
-                String lplayFilePath = getApplicationContext().getFilesDir().getAbsolutePath() + "/" + playFilePath;
+                String lplayFilePath = getApplicationContext().getFilesDir().getAbsolutePath() + File.separator + playFilePath;
                 openSLPlayerController.setAudioDataSource(lplayFilePath, 0.2f);
                 // OpenSL ES进行播放
                 openSLPlayerController.play();
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
      　　*/
     public static void CopyAssets(Context myContext, String ASSETS_NAME,
                                   String savePath, String saveName) {
-        String filename = savePath + "/" + saveName;
+        String filename = savePath + File.separator + saveName;
         File dir = new File(savePath);
         // 如果目录不中存在，创建这个目录
         if (!dir.exists())
