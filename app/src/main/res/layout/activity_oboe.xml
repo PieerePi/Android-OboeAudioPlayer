@@ -135,7 +135,7 @@
         android:layout_marginTop="12dp"
         android:text="@string/latency"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bufferSizeContainer"
+        app:layout_constraintTop_toBottomOf="@id/bufferSizeContainer"
         android:layout_marginStart="@dimen/activity_horizontal_margin" />
 
     <!-- User instructions -->
@@ -148,7 +148,7 @@
         android:lines="3"
         android:text="@string/init_status"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/latencyText"
+        app:layout_constraintTop_toBottomOf="@id/latencyText"
         android:layout_marginStart="@dimen/activity_horizontal_margin" />
 
     <Button
@@ -160,7 +160,7 @@
         android:text="@string/play"
         android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userInstructionView" />
+        app:layout_constraintTop_toBottomOf="@id/userInstructionView" />
 
     <Button
         android:id="@+id/oboe_stop_btn"
@@ -170,6 +170,6 @@
         android:layout_marginTop="20dp"
         android:text="@string/stop"
         android:textAllCaps="false"
-        app:layout_constraintStart_toEndOf="@+id/oboe_play_btn"
-        app:layout_constraintTop_toBottomOf="@+id/userInstructionView" />
+        app:layout_constraintStart_toEndOf="@id/oboe_play_btn"
+        app:layout_constraintTop_toBottomOf="@id/userInstructionView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
